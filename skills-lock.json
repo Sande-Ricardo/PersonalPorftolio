@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "skills": {
+    "design-md": {
+      "source": "google-labs-code/stitch-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/stitch-utilities/skills/design-md/SKILL.md",
+      "computedHash": "44af3e6e89a42a765d9cebf943f1e2ff3cdf43d1958341eb43fb7b74116f6691"
+    },
+    "firebase-auth-basics": {
+      "source": "firebase/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/firebase-auth-basics/SKILL.md",
+      "computedHash": "87ffefcaa1934070f3f91977588ec82fde38a75cbc41919df6fe0a0c83acc90d"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "computedHash": "516bd2154eb843a8240e43d5b285229129853114ad7075a5e141e1c08e408c84"
+    },
+    "next-best-practices": {
+      "source": "vercel-labs/next-skills",
+      "sourceType": "github",
+      "skillPath": "skills/next-best-practices/SKILL.md",
+      "computedHash": "f4678aef4ffc10a5ea64a91e57abe5a5081af813b06d58d565caf3e8ef56e26c"
+    },
+    "react:components": {
+      "source": "google-labs-code/stitch-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/stitch-build/skills/react-components/SKILL.md",
+      "computedHash": "ddb6007b09a408e387250d82ad5a6cd2ca22b87b703aac2d2bcb706200653425"
+    },
+    "seo": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/seo/SKILL.md",
+      "computedHash": "3d72168e266b759454b3e16028e7306ec716f21de6878cac7e98a0a3834ab5db"
+    }
+  }
+}
