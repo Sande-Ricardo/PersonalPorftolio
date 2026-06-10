@@ -1,4 +1,4 @@
-# The Architect — Fullstack & AI Engineer Portfolio
+# SandeRicardo — Fullstack & AI Engineer Portfolio
 
 A premium, high-performance web portfolio and custom CMS built with Next.js (App Router), Tailwind CSS, Firebase, and Cloudinary. Designed with the strict "Monochrome Elegance" design system—brutalist aesthetic, greyscale color palette, sharp 1px borders, and zero border-radius.
 

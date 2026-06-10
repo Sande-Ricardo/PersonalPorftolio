@@ -1,6 +1,6 @@
 # Software Requirements Specification (SRS)
 
-## The Architect — Fullstack & AI Engineer Portfolio
+## SandeRicardo — Fullstack & AI Engineer Portfolio
 
 ---
 
@@ -59,7 +59,7 @@
 
 ### 1.1 Propósito
 
-Este documento constituye la Especificación de Requerimientos de Software (SRS) para el proyecto **"The Architect — Fullstack & AI Engineer Portfolio"**. Su propósito es definir, de manera exhaustiva y sin ambigüedades, la totalidad de los requerimientos funcionales y no funcionales del sistema, estableciendo un contrato técnico entre las partes interesadas (stakeholders) y el equipo de desarrollo.
+Este documento constituye la Especificación de Requerimientos de Software (SRS) para el proyecto **"SandeRicardo — Fullstack & AI Engineer Portfolio"**. Su propósito es definir, de manera exhaustiva y sin ambigüedades, la totalidad de los requerimientos funcionales y no funcionales del sistema, estableciendo un contrato técnico entre las partes interesadas (stakeholders) y el equipo de desarrollo.
 
 El documento servirá como fuente única de verdad durante las fases de diseño, implementación, pruebas y mantenimiento del proyecto. Cualquier decisión de implementación que contradiga o no esté contemplada en este documento deberá ser escalada para revisión y, de ser necesario, se generará una versión actualizada del SRS.
 
