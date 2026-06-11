@@ -39,28 +39,28 @@ export const About: React.FC = () => {
         <div className="md:col-span-7 bg-background p-8 flex flex-col justify-between">
           <div className="space-y-6 font-body-base text-body-base leading-relaxed text-on-surface">
             <p>
-              Diseño y construyo soluciones de software escalables en la intersección de
-              rendimiento crudo y estética técnica minimalista. Trato el código como infraestructura:
-              estructuralmente sólido, meticulosamente documentado y fundamentalmente determinista.
+              I design and build scalable software solutions at the intersection of raw performance and
+              minimal technical aesthetics. I treat code as infrastructure: structurally sound,
+              meticulously documented, and fundamentally deterministic.
             </p>
             <p>
-              Especializado en sistemas distribuidos y desarrollo de ecosistemas en la nube de alta
-              disponibilidad, me enfoco en desarmar problemas complejos en componentes lógicos modulares
-              que toleren fallos y degraden de manera controlada bajo estrés.
+              Specialized in distributed systems and high-availability cloud ecosystems, I focus on
+              dismantling complex problems into modular logical components that tolerate faults and
+              degrade gracefully under stress.
             </p>
             <p>
-              Actualmente investigo sobre la integración operativa de modelos de inteligencia artificial y
-              sistemas RAG (Retrieval-Augmented Generation) para automatizar análisis de datos y flujos de
-              trabajo empresariales.
+              Currently researching the operational integration of machine learning models and
+              RAG (Retrieval-Augmented Generation) systems to automate data analysis and enterprise
+              workflows.
             </p>
           </div>
 
           <div className="mt-12 pt-6 border-t border-outline-variant flex flex-wrap gap-6 font-technical-label text-technical-label text-on-surface-variant">
             <div>
-              <span className="text-primary mr-1">&gt;</span> 5+ AÑOS EXP
+              <span className="text-primary mr-1">&gt;</span> 5+ YEARS EXP
             </div>
             <div>
-              <span className="text-primary mr-1">&gt;</span> 15+ PROYECTOS
+              <span className="text-primary mr-1">&gt;</span> 15+ PROJECTS
             </div>
             <div>
               <span className="text-primary mr-1">&gt;</span> BUENOS AIRES (UTC-3)

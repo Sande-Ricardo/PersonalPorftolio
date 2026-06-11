@@ -11,7 +11,7 @@ export const experiences: ExperienceItem[] = [
     id: "exp-1",
     role: "Senior Systems Engineer",
     company: "TechCorp",
-    period: "2023 - Presente",
+    period: "2023 - Present",
     bullets: [
       "Architected and deployed a multi-region microservices infrastructure.",
       "Spearheaded the integration of LLMs into internal tooling, reducing operational latency.",

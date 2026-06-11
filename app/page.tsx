@@ -7,6 +7,10 @@ import { BootSequence } from "../components/animations/boot-sequence"
 
 import { About } from "../components/sections/about"
 import { ExperienceTimeline } from "../components/sections/experience-timeline"
+import { Skills } from "../components/sections/skills"
+import { GitHubContributions } from "../components/sections/github-contributions"
+import { ProjectsGrid } from "../components/sections/projects-grid"
+import { Contact } from "../components/sections/contact"
 
 export default function Home() {
   const [bootComplete, setBootComplete] = React.useState(false)
@@ -72,15 +76,15 @@ export default function Home() {
           <ExperienceTimeline />
         </div>
 
-        {/* Temporary stubs for scroll sections until implemented in subsequent phases */}
-        <div id="projects" className="h-[20vh] border-t border-outline-variant flex items-center px-margin-mobile md:px-margin-desktop text-outline text-technical-label">
-          [ DEPLOYMENTS_LOG :: PENDING_PHASE_6 ]
+        <div id="projects">
+          <ProjectsGrid />
         </div>
-        <div id="stack" className="h-[20vh] border-t border-outline-variant flex items-center px-margin-mobile md:px-margin-desktop text-outline text-technical-label">
-          [ CAPABILITY_MATRIX :: PENDING_PHASE_4 ]
+        <div id="stack">
+          <Skills />
+          <GitHubContributions />
         </div>
-        <div id="contact" className="h-[20vh] border-t border-outline-variant flex items-center px-margin-mobile md:px-margin-desktop text-outline text-technical-label">
-          [ CONTACT_INTERFACE :: PENDING_PHASE_7 ]
+        <div id="contact">
+          <Contact />
         </div>
       </main>
 

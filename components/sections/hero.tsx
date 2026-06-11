@@ -41,8 +41,8 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToProjects }) => {
               Fullstack &amp; AI Engineer
             </div>
             <p className="font-body-base text-body-base text-on-surface-variant max-w-2xl leading-relaxed">
-              Diseño sistemas que piensan, interfaces que responden y arquitecturas que escalan.
-              Especializado en ecosistemas de alto rendimiento y minimalismo técnico.
+              I design systems that think, interfaces that respond, and architectures that scale.
+              Specialized in high-performance ecosystems and technical minimalism.
             </p>
           </div>
 
@@ -73,7 +73,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToProjects }) => {
               onClick={onScrollToProjects}
               className="flex items-center justify-center gap-2 group w-full sm:w-auto"
             >
-              Ver proyectos
+              View projects
               <ArrowForwardIcon
                 size={14}
                 className="group-hover:translate-x-1 transition-transform duration-300"
@@ -81,7 +81,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToProjects }) => {
             </Button>
             <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
               <Button variant="secondary" className="w-full sm:w-auto">
-                Descargar CV
+                Download CV
               </Button>
             </a>
           </div>
