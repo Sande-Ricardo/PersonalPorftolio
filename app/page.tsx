@@ -5,6 +5,9 @@ import { Header } from "../components/layout/header"
 import { Hero } from "../components/sections/hero"
 import { BootSequence } from "../components/animations/boot-sequence"
 
+import { About } from "../components/sections/about"
+import { ExperienceTimeline } from "../components/sections/experience-timeline"
+
 export default function Home() {
   const [bootComplete, setBootComplete] = React.useState(false)
   const [currentSection, setCurrentSection] = React.useState("about")
@@ -65,6 +68,8 @@ export default function Home() {
               document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
             }}
           />
+          <About />
+          <ExperienceTimeline />
         </div>
 
         {/* Temporary stubs for scroll sections until implemented in subsequent phases */}
