@@ -8,51 +8,38 @@ interface ContributionCell {
   level: number
 }
 
+import { getGitHubStatsAction } from "@/app/actions/github-update"
+import type { GitHubStats, ContributionCell } from "@/lib/github/fetch-contributions"
+
 export const GitHubContributions: React.FC = () => {
-  const [latency, setLatency] = React.useState("JUST NOW")
   const [mounted, setMounted] = React.useState(false)
+  const [stats, setStats] = React.useState<GitHubStats | null>(null)
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState<string | null>(null)
 
   React.useEffect(() => {
     setMounted(true)
-  }, [])
 
-  // Generate 371 days of simulated commit history
-  const cells = React.useMemo(() => {
-    const list: ContributionCell[] = []
-    const today = new Date()
-
-    for (let i = 370; i >= 0; i--) {
-      const date = new Date(today)
-      date.setDate(today.getDate() - i)
-
-      // Simulate realistic commit distribution
-      const rand = Math.random()
-      let count = 0
-      let level = 0
-
-      if (rand > 0.92) {
-        count = Math.floor(Math.random() * 5) + 8
-        level = 4
-      } else if (rand > 0.85) {
-        count = Math.floor(Math.random() * 4) + 4
-        level = 3
-      } else if (rand > 0.75) {
-        count = Math.floor(Math.random() * 3) + 2
-        level = 2
-      } else if (rand > 0.5) {
-        count = 1
-        level = 1
-      }
-
-      const dateString = date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
+    let active = true
+    getGitHubStatsAction()
+      .then((res) => {
+        if (!active) return
+        if (res.success && res.data) {
+          setStats(res.data)
+        } else {
+          setError(res.error || "Failed to load telemetry")
+        }
+        setLoading(false)
+      })
+      .catch((err) => {
+        if (!active) return
+        setError(err.message || "An unexpected error occurred")
+        setLoading(false)
       })
 
-      list.push({ date: dateString, count, level })
+    return () => {
+      active = false
     }
-    return list
   }, [])
 
   const getCellColorClass = (level: number) => {
@@ -70,7 +57,8 @@ export const GitHubContributions: React.FC = () => {
     }
   }
 
-  if (!mounted) {
+  // Display skeleton during loading/initialization
+  if (!mounted || loading) {
     return (
       <section className="px-margin-mobile md:px-margin-desktop py-20 border-b border-outline-variant select-none">
         {/* Module Header */}
@@ -85,15 +73,45 @@ export const GitHubContributions: React.FC = () => {
         {/* Skeleton Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 border border-outline-variant bg-[#191A1E] h-[250px] items-stretch">
           <div className="col-span-1 p-6 border-b md:border-b-0 md:border-r border-outline-variant flex flex-col justify-between">
-            <div className="font-technical-label text-technical-label text-outline uppercase">
-              &gt; TELEMETRY_OFFLINE
+            <div className="font-technical-label text-technical-label text-outline uppercase animate-pulse">
+              &gt; ESTABLISHING_CONNECTIVITY
             </div>
             <div className="font-technical-label text-[10px] text-outline uppercase block opacity-50">
-              SYS.UPDATE: INITIALIZING
+              SYS.UPDATE: PENDING
             </div>
           </div>
           <div className="col-span-1 md:col-span-3 p-6 flex items-center justify-center font-technical-label text-xs text-outline bg-background">
             &gt; STABILIZING_MATRIX // EST_CONNECTIVITY...
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  // Fallback if load fails
+  if (error || !stats) {
+    return (
+      <section className="px-margin-mobile md:px-margin-desktop py-20 border-b border-outline-variant select-none">
+        <div className="flex justify-between items-center py-2 border-y border-outline-variant font-technical-label text-technical-label uppercase w-full mb-12">
+          <span className="text-primary tracking-widest">[ TELEMETRY ] :: GITHUB_ACTIVITY_LOG</span>
+          <span className="text-error flex items-center gap-2">
+            <span className="w-2 h-2 bg-error inline-block" />
+            STATUS: OFFLINE
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 border border-outline-variant bg-[#191A1E] h-[250px] items-stretch">
+          <div className="col-span-1 p-6 border-b md:border-b-0 md:border-r border-outline-variant flex flex-col justify-between">
+            <div className="font-technical-label text-error uppercase">
+              &gt; TELEMETRY_OFFLINE
+            </div>
+            <div className="font-technical-label text-[10px] text-error uppercase block opacity-50">
+              SYS.UPDATE: FAILED
+            </div>
+          </div>
+          <div className="col-span-1 md:col-span-3 p-6 flex flex-col items-center justify-center font-technical-label text-xs text-on-surface-variant bg-background gap-2">
+            <div>&gt; LINK_FAULT // {error || "DATA_ACQUISITION_TIMEOUT"}</div>
+            <div className="opacity-50">PLEASE VERIFY GITHUB_TOKEN CREDENTIALS IN THE SERVER ENVIRONMENT</div>
           </div>
         </div>
       </section>
@@ -133,7 +151,7 @@ export const GitHubContributions: React.FC = () => {
                 &gt; TOTAL_COMMITS_YTD:
               </span>
               <span className="font-technical-label text-[32px] leading-none text-primary font-bold">
-                [ 2,048 ]
+                [ {stats.totalContributions.toLocaleString()} ]
               </span>
             </div>
             <div className="flex flex-col gap-1">
@@ -141,7 +159,7 @@ export const GitHubContributions: React.FC = () => {
                 &gt; LONGEST_STREAK:
               </span>
               <span className="font-technical-label text-[20px] leading-none text-primary font-bold">
-                [ 42 DAYS ]
+                [ {stats.longestStreak} DAYS ]
               </span>
             </div>
             <div className="flex flex-col gap-1">
@@ -149,13 +167,13 @@ export const GitHubContributions: React.FC = () => {
                 &gt; ACTIVE_REPOS:
               </span>
               <span className="font-technical-label text-[20px] leading-none text-primary font-bold">
-                [ 14 ]
+                [ {stats.activeRepos} ]
               </span>
             </div>
           </div>
           <div className="pt-4 border-t border-outline-variant mt-auto">
             <span className="font-technical-label text-[10px] text-outline uppercase block opacity-50">
-              SYS.UPDATE: {latency}
+              SYS.UPDATE: {new Date(stats.updatedAt).toLocaleString("en-US", { timeZoneName: "short" })}
             </span>
           </div>
         </div>
@@ -190,7 +208,7 @@ export const GitHubContributions: React.FC = () => {
 
             {/* Heatmap Grid in Column Flow */}
             <div className="grid grid-flow-col grid-rows-7 gap-[2px] w-max select-none">
-              {cells.map((cell, idx) => (
+              {stats.cells.map((cell, idx) => (
                 <div
                   key={idx}
                   className={`w-[12px] h-[12px] transition-all duration-100 hover:scale-125 hover:brightness-125 hover:border hover:border-white z-0 hover:z-20 cursor-crosshair ${getCellColorClass(
