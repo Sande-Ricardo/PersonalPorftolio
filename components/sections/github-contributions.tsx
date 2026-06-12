@@ -10,6 +10,11 @@ interface ContributionCell {
 
 export const GitHubContributions: React.FC = () => {
   const [latency, setLatency] = React.useState("JUST NOW")
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Generate 371 days of simulated commit history
   const cells = React.useMemo(() => {
@@ -63,6 +68,36 @@ export const GitHubContributions: React.FC = () => {
       default:
         return "bg-[#191A1E] border border-white/5"
     }
+  }
+
+  if (!mounted) {
+    return (
+      <section className="px-margin-mobile md:px-margin-desktop py-20 border-b border-outline-variant select-none">
+        {/* Module Header */}
+        <div className="flex justify-between items-center py-2 border-y border-outline-variant font-technical-label text-technical-label uppercase w-full mb-12">
+          <span className="text-primary tracking-widest">[ TELEMETRY ] :: GITHUB_ACTIVITY_LOG</span>
+          <span className="text-on-surface-variant flex items-center gap-2">
+            <span className="w-2 h-2 bg-primary inline-block animate-pulse" />
+            STATUS: INITIALIZING...
+          </span>
+        </div>
+
+        {/* Skeleton Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 border border-outline-variant bg-[#191A1E] h-[250px] items-stretch">
+          <div className="col-span-1 p-6 border-b md:border-b-0 md:border-r border-outline-variant flex flex-col justify-between">
+            <div className="font-technical-label text-technical-label text-outline uppercase">
+              &gt; TELEMETRY_OFFLINE
+            </div>
+            <div className="font-technical-label text-[10px] text-outline uppercase block opacity-50">
+              SYS.UPDATE: INITIALIZING
+            </div>
+          </div>
+          <div className="col-span-1 md:col-span-3 p-6 flex items-center justify-center font-technical-label text-xs text-outline bg-background">
+            &gt; STABILIZING_MATRIX // EST_CONNECTIVITY...
+          </div>
+        </div>
+      </section>
+    )
   }
 
   return (
