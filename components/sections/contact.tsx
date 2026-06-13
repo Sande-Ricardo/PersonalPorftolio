@@ -5,6 +5,8 @@ import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 
+import { submitContactForm } from "@/app/actions/contact"
+
 interface FormValues {
   name: string
   email: string
@@ -28,6 +30,7 @@ export const Contact: React.FC = () => {
   })
   const [errors, setErrors] = React.useState<FormErrors>({})
   const [status, setStatus] = React.useState<"idle" | "submitting" | "success" | "error">("idle")
+  const [errorMessage, setErrorMessage] = React.useState("")
 
   const validate = (): boolean => {
     const tempErrors: FormErrors = {}
@@ -76,13 +79,19 @@ export const Contact: React.FC = () => {
     if (!validate()) return
 
     setStatus("submitting")
+    setErrorMessage("")
 
     try {
-      // Simulate API submit delay (this will connect to Firebase in Module 4)
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setStatus("success")
-      setValues({ name: "", email: "", projectType: "frontend", message: "" })
-    } catch (err) {
+      const res = await submitContactForm(values)
+      if (res.success) {
+        setStatus("success")
+        setValues({ name: "", email: "", projectType: "frontend", message: "" })
+      } else {
+        setErrorMessage(res.error || "Submission rejected by system.")
+        setStatus("error")
+      }
+    } catch (err: any) {
+      setErrorMessage(err.message || "Network transmission failure.")
       setStatus("error")
     }
   }
@@ -121,7 +130,7 @@ export const Contact: React.FC = () => {
             <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full">
               {status === "error" && (
                 <div className="text-error font-mono text-xs border border-error bg-error/10 p-3 rounded-none">
-                  &gt; SUBMISSION_FAILURE // Error occurred. Please try again.
+                  &gt; SUBMISSION_FAILURE // {errorMessage || "Error occurred. Please try again."}
                 </div>
               )}
 

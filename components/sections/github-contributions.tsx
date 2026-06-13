@@ -2,12 +2,6 @@
 
 import * as React from "react"
 
-interface ContributionCell {
-  date: string
-  count: number
-  level: number
-}
-
 import { getGitHubStatsAction } from "@/app/actions/github-update"
 import type { GitHubStats, ContributionCell } from "@/lib/github/fetch-contributions"
 
