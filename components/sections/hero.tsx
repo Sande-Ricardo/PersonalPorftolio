@@ -88,13 +88,6 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToProjects }) => {
         </div>
       </div>
 
-      {/* Floating Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-        <span className="font-technical-label text-[10px] text-outline lowercase tracking-widest">
-          scroll_down()
-        </span>
-        <ArrowDownwardIcon size={14} className="text-outline" />
-      </div>
     </section>
   )
 }
