@@ -1,9 +1,15 @@
 "use client"
 
 import * as React from "react"
-import { experiences } from "../../lib/data/experience"
+import { experiences as fallbackExperiences } from "../../lib/data/experience"
+import { ExperienceContent } from "@/lib/db/content"
 
-export const ExperienceTimeline: React.FC = () => {
+export interface ExperienceTimelineProps {
+  data?: ExperienceContent | null
+}
+
+export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({ data }) => {
+  const items = data?.entries?.length ? data.entries : fallbackExperiences
   return (
     <section className="px-margin-mobile md:px-margin-desktop py-20 border-b border-outline-variant select-none">
       <div className="mb-12">
@@ -21,7 +27,7 @@ export const ExperienceTimeline: React.FC = () => {
 
         {/* Timeline items */}
         <div className="space-y-12">
-          {experiences.map((item) => (
+          {items.map((item) => (
             <div key={item.id} className="relative">
               {/* Timeline dot node */}
               <div className="absolute -left-6 md:-left-8 top-2 w-[6px] h-[6px] bg-primary transform -translate-x-[3.5px] border border-background" />

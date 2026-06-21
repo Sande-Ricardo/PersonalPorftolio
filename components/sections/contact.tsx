@@ -6,6 +6,7 @@ import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 
 import { submitContactForm } from "@/app/actions/contact"
+import { ContactContent } from "@/lib/db/content"
 
 interface FormValues {
   name: string
@@ -21,7 +22,11 @@ interface FormErrors {
   message?: string
 }
 
-export const Contact: React.FC = () => {
+export interface ContactProps {
+  data?: ContactContent | null
+}
+
+export const Contact: React.FC<ContactProps> = ({ data }) => {
   const [values, setValues] = React.useState<FormValues>({
     name: "",
     email: "",
@@ -229,36 +234,52 @@ export const Contact: React.FC = () => {
         <div className="md:pl-12 flex flex-col gap-8">
           <div className="bg-[#191A1E] border border-outline-variant p-6 rounded-none flex flex-col gap-4 font-mono text-xs select-text">
             <div className="font-code-snippet text-primary flex items-center gap-2">
-              <span className="inline-block w-2 h-2 bg-primary animate-pulse" />
-              STATUS: AVAILABLE_FOR_PROJECTS
+              <span className={`inline-block w-2 h-2 ${data?.availability_badge === 'inactive' ? 'bg-error' : data?.availability_badge === 'limited' ? 'bg-orange-500' : 'bg-primary animate-pulse'}`} />
+              STATUS: {data?.availability_status || "AVAILABLE_FOR_PROJECTS"}
             </div>
             <div className="text-on-surface-variant pl-4">&gt; RESPONSE_TIME &lt; 24hs</div>
             <div className="text-on-surface-variant pl-4">&gt; TIMEZONE: UTC-3 (BUENOS AIRES)</div>
           </div>
 
           <div className="flex flex-col gap-4 font-mono text-xs select-text">
-            <a
-              href="mailto:hi@sandericardo.com"
-              className="text-on-surface-variant hover:text-primary hover:underline decoration-1 underline-offset-4 transition-all duration-200 block"
-            >
-              &gt; EMAIL: hi@sandericardo.com
-            </a>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-on-surface-variant hover:text-primary hover:underline decoration-1 underline-offset-4 transition-all duration-200 block"
-            >
-              &gt; GITHUB: github.com
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-on-surface-variant hover:text-primary hover:underline decoration-1 underline-offset-4 transition-all duration-200 block"
-            >
-              &gt; LINKEDIN: linkedin.com
-            </a>
+            {data?.social_links?.length ? (
+              data.social_links.map(link => (
+                <a
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-on-surface-variant hover:text-primary hover:underline decoration-1 underline-offset-4 transition-all duration-200 block uppercase"
+                >
+                  &gt; {link.name}: {link.url.replace(/^https?:\/\//, '')}
+                </a>
+              ))
+            ) : (
+              <>
+                <a
+                  href="mailto:hi@sandericardo.com"
+                  className="text-on-surface-variant hover:text-primary hover:underline decoration-1 underline-offset-4 transition-all duration-200 block"
+                >
+                  &gt; EMAIL: hi@sandericardo.com
+                </a>
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-on-surface-variant hover:text-primary hover:underline decoration-1 underline-offset-4 transition-all duration-200 block"
+                >
+                  &gt; GITHUB: github.com
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-on-surface-variant hover:text-primary hover:underline decoration-1 underline-offset-4 transition-all duration-200 block"
+                >
+                  &gt; LINKEDIN: linkedin.com
+                </a>
+              </>
+            )}
           </div>
         </div>
       </div>

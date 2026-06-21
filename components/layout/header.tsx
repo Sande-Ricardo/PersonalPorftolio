@@ -34,11 +34,10 @@ export const Header: React.FC<HeaderProps> = ({ currentSection = "about" }) => {
             <a
               key={item.id}
               href={item.href}
-              className={`px-2 py-1 font-technical-label text-technical-label transition-all duration-100 cursor-pointer ${
-                isActive
+              className={`px-2 py-1 font-technical-label text-technical-label transition-all duration-100 cursor-pointer ${isActive
                   ? "bg-white text-black font-bold"
                   : "text-on-surface-variant hover:bg-white hover:text-black"
-              }`}
+                }`}
             >
               {item.label}
             </a>
@@ -49,9 +48,9 @@ export const Header: React.FC<HeaderProps> = ({ currentSection = "about" }) => {
       {/* Language Toggle & Mobile Menu Trigger */}
       <div className="flex items-center gap-4">
         {/* Language selector toggle */}
-        <button className="font-technical-label text-technical-label text-primary border border-primary px-3 py-1 cursor-pointer hover:bg-white hover:text-black transition-colors duration-200 uppercase">
+        {/* <button className="font-technical-label text-technical-label text-primary border border-primary px-3 py-1 cursor-pointer hover:bg-white hover:text-black transition-colors duration-200 uppercase">
           ES/EN
-        </button>
+        </button> */}
 
         {/* Mobile menu trigger */}
         <button
@@ -76,11 +75,10 @@ export const Header: React.FC<HeaderProps> = ({ currentSection = "about" }) => {
                   key={item.id}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`w-full p-3 font-technical-label text-technical-label text-left transition-all duration-100 ${
-                    isActive
+                  className={`w-full p-3 font-technical-label text-technical-label text-left transition-all duration-100 ${isActive
                       ? "bg-white text-black font-bold"
                       : "text-on-surface-variant hover:bg-white hover:text-black"
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </a>

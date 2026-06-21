@@ -43,18 +43,13 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     setLoading(true)
 
     try {
-      // 3. Read file as base64
-      const reader = new FileReader()
-      const base64Promise = new Promise<string>((resolve, reject) => {
-        reader.onload = () => resolve(reader.result as string)
-        reader.onerror = (err) => reject(err)
-      })
-      reader.readAsDataURL(file)
-      
-      const base64Data = await base64Promise
+      // 3. Send file using FormData to avoid base64 limits in Server Actions
+      const formData = new FormData()
+      formData.append("file", file)
+      formData.append("folder", folder)
 
       // 4. Trigger Server Action to upload
-      const res = await uploadImageAction(base64Data, folder)
+      const res = await uploadImageAction(formData)
 
       if (res.success && res.url) {
         onChange(res.url)

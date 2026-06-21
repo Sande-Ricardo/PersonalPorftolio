@@ -4,11 +4,14 @@ import * as React from "react"
 import { Button } from "../ui/button"
 import { TerminalIcon, ArrowForwardIcon, ArrowDownwardIcon } from "../ui/icons"
 
+import { HeroContent } from "@/lib/db/content"
+
 export interface HeroProps {
   onScrollToProjects?: () => void
+  data?: HeroContent | null
 }
 
-export const Hero: React.FC<HeroProps> = ({ onScrollToProjects }) => {
+export const Hero: React.FC<HeroProps> = ({ onScrollToProjects, data }) => {
   const [latency, setLatency] = React.useState("12ms")
 
   React.useEffect(() => {
@@ -32,13 +35,13 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToProjects }) => {
 
           {/* Main Title */}
           <h1 className="font-display text-[32px] md:text-[48px] font-semibold leading-none text-primary tracking-tighter uppercase">
-            Ricardo Sande
+            {data?.name || "Ricardo Sande"}
           </h1>
 
           {/* Tagline section with vertical brutalist line */}
           <div className="border-l border-outline-variant pl-4 py-1 flex flex-col gap-4">
             <div className="font-technical-label text-body-base text-primary uppercase tracking-widest font-semibold">
-              Fullstack &amp; AI Engineer
+              {data?.title || "Fullstack & AI Engineer"}
             </div>
             <p className="font-body-base text-body-base text-on-surface-variant max-w-2xl leading-relaxed">
               I design systems that think, interfaces that respond, and architectures that scale.
@@ -80,9 +83,9 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToProjects }) => {
               />
             </Button>
             <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-              <Button variant="secondary" className="w-full sm:w-auto">
+              {/* <Button variant="secondary" className="w-full sm:w-auto">
                 Download CV
-              </Button>
+              </Button> */}
             </a>
           </div>
         </div>

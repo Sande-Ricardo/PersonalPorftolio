@@ -2,9 +2,15 @@
 
 import * as React from "react"
 import { Tag } from "../ui/tag"
-import { skillCategories } from "../../lib/data/skills"
+import { skillCategories as fallbackCategories } from "../../lib/data/skills"
+import { StackContent } from "@/lib/db/content"
 
-export const Skills: React.FC = () => {
+export interface SkillsProps {
+  data?: StackContent | null
+}
+
+export const Skills: React.FC<SkillsProps> = ({ data }) => {
+  const categories = data?.categories?.length ? data.categories : fallbackCategories
   return (
     <section className="px-margin-mobile md:px-margin-desktop py-20 border-b border-outline-variant select-none">
       <div className="mb-12">
@@ -17,7 +23,7 @@ export const Skills: React.FC = () => {
       </div>
 
       <div className="border border-outline-variant bg-outline-variant gap-px grid grid-cols-1 mt-12">
-        {skillCategories.map((category) => (
+        {categories.map((category) => (
           <div
             key={category.title}
             className="grid grid-cols-1 md:grid-cols-12 gap-px bg-outline-variant"
